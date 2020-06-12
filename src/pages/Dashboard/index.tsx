@@ -16,11 +16,13 @@ import {
   ProviderName,
   ProviderMeta,
   ProviderMetaText,
-  ProviderListHeaderComponent,
+  ProviderListHeader,
+  ProviderListHeaderText,
 } from './styles';
 import {useAuth} from '../../hooks/auth';
 import api from '../../services/apiClient';
 import responsivePixelSize from '../../utils/responsivePixelSize';
+import BeardDude from '../../assets/noun_beard.svg';
 
 const styles = StyleSheet.create({
   shadow: {
@@ -45,16 +47,16 @@ export interface Provider {
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
 
-  const {user, signOut} = useAuth();
+  const {user} = useAuth();
   const {navigate} = useNavigation();
   const navigateToProfile = useCallback(() => {
     navigate('Profile');
   }, [navigate]);
   const navigateToCreateAppointment = useCallback(
     (providerId: string) => {
-      navigate('CreateAppointment', {providerId});
+      navigate('CreateAppointment', {providerId, providers});
     },
-    [navigate],
+    [navigate, providers],
   );
 
   useEffect(() => {
@@ -77,9 +79,17 @@ const Dashboard: React.FC = () => {
       <ProvidersList
         data={providers}
         keyExtractor={(provider) => provider.id}
-        ListHeaderComponent={<ProviderListHeaderComponent>Barbeiros</ProviderListHeaderComponent>}
+        ListHeaderComponent={(
+          <ProviderListHeader>
+            <BeardDude width={42} height={42} fill="#999591" />
+            <ProviderListHeaderText>Listagem de Barbeiros</ProviderListHeaderText>
+          </ProviderListHeader>
+        )}
         renderItem={({item}) => (
-          <ProviderContainer style={styles.shadow} onPress={() => navigateToCreateAppointment(item.id)}>
+          <ProviderContainer
+            style={styles.shadow}
+            onPress={() => navigateToCreateAppointment(item.id)}
+          >
             <ProviderAvatar source={{uri: item.avatar_url}} />
             <ProviderInfo>
               <ProviderName>{item.name}</ProviderName>

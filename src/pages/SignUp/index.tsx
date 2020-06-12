@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, {useCallback, useRef} from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -9,17 +9,12 @@ import {
   Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import { useNavigation } from '@react-navigation/native';
-import { Form } from '@unform/mobile';
-import { FormHandles } from '@unform/core';
+import {useNavigation} from '@react-navigation/native';
+import {Form} from '@unform/mobile';
+import {FormHandles} from '@unform/core';
 import * as Yup from 'yup';
 import logo from '../../assets/logo.png';
-import {
-  Container,
-  BackToSignInButton,
-  BackToSignInButtonText,
-  Title,
-} from './styles';
+import {Container, BackToSignInButton, BackToSignInButtonText, Title} from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
@@ -44,9 +39,7 @@ const SignUp: React.FC = () => {
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome é obrigatório'),
-          email: Yup.string()
-            .email('Digite um e-mail válido')
-            .required('Email é obrigatório'),
+          email: Yup.string().email('Digite um e-mail válido').required('Email é obrigatório'),
           password: Yup.string().min(3, 'No mínimo 3 caracteres'),
         });
 
@@ -80,14 +73,11 @@ const SignUp: React.FC = () => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={{flex: 1}}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       enabled
     >
-      <ScrollView
-        contentContainerStyle={{ flex: 1 }}
-        keyboardShouldPersistTaps="never"
-      >
+      <ScrollView contentContainerStyle={{flex: 1}} keyboardShouldPersistTaps="never">
         <Container>
           <Image source={logo} />
 
@@ -126,9 +116,7 @@ const SignUp: React.FC = () => {
               onSubmitEditing={() => formRef.current?.submitForm()}
             />
 
-            <Button onPress={() => formRef.current?.submitForm()}>
-              Cadastrar
-            </Button>
+            <Button onPress={() => formRef.current?.submitForm()}>Cadastrar</Button>
           </Form>
 
           <BackToSignInButton onPress={() => navigation.goBack()}>

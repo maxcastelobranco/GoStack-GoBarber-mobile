@@ -53,7 +53,6 @@ const AuthProvider: React.FC = ({children}) => {
       },
     );
   }, [signOut]);
-
   const signIn = useCallback(
     async ({email, password}) => {
       const response = await api.post('sessions', {
@@ -75,21 +74,21 @@ const AuthProvider: React.FC = ({children}) => {
     },
     [setupInvalidateSessionInterceptor],
   );
+  const loadStoredData = useCallback(async () => {
+    const [token, user] = await AsyncStorage.multiGet(['@GoBarber:token', '@GoBarber:user']);
 
-  useEffect(() => {
-    async function loadStoredData(): Promise<void> {
-      const [token, user] = await AsyncStorage.multiGet(['@GoBarber:token', '@GoBarber:user']);
-
-      if (token[1] && user[1]) {
-        api.defaults.headers.authorization = `Bearer ${token[1]}`;
-        setData({token: token[1], user: JSON.parse(user[1])});
-      }
-
-      setLoading(false);
+    if (token[1] && user[1]) {
+      api.defaults.headers.authorization = `Bearer ${token[1]}`;
+      await setupInvalidateSessionInterceptor();
+      setData({token: token[1], user: JSON.parse(user[1])});
     }
 
+    setLoading(false);
+  }, [setupInvalidateSessionInterceptor]);
+
+  useEffect(() => {
     loadStoredData();
-  }, []);
+  }, [loadStoredData]);
 
   return (
     <AuthContext.Provider value={{user: data.user, signIn, signOut, loading}}>

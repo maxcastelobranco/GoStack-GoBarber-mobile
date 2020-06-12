@@ -10,12 +10,12 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
+  background: #28262e;
   padding: ${responsivePixelSize(24)}px;
   ${Platform.OS === 'ios' &&
   css`
     padding-top: ${responsivePixelSize(getStatusBarHeight() + 24)}px;
-  `}
-  background: #28262e;
+  `};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -83,9 +83,14 @@ export const ProviderMetaText = styled.Text`
   font-family: RobotoSlabRegular;
 `;
 
-export const ProviderListHeaderComponent = styled.Text`
+export const ProviderListHeader = styled.View`
+  flex-direction: row;
+`;
+
+export const ProviderListHeaderText = styled.Text`
   font-size: ${responsivePixelSize(28)}px;
-  margin-bottom: ${responsivePixelSize(24)}px;
+  margin-bottom: ${responsivePixelSize(28)}px;
+  margin-left: ${responsivePixelSize(12)}px;
   color: #999591;
   font-family: RobotoSlabMedium;
 `;
