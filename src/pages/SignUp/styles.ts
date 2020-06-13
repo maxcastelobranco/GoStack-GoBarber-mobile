@@ -1,25 +1,26 @@
 import styled from 'styled-components/native';
 import {getBottomSpace} from 'react-native-iphone-x-helper';
+import responsivePixelSize from "../../utils/responsivePixelSize";
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  padding: 0 32px;
+  padding: 0 ${responsivePixelSize(32)}px;
 `;
 
 export const Title = styled.Text`
-  font-size: 24px;
+  font-size: ${responsivePixelSize(24)}px;
   color: #f4ede8;
   font-family: 'RobotoSlab-Medium';
-  margin: 48px 0 24px;
+  margin: ${responsivePixelSize(48)}px 0 ${responsivePixelSize(24)}px;
 `;
 
 export const BackToSignInButton = styled.TouchableOpacity`
   width: 100%;
-  margin-top: 24px;
+  margin-top: ${responsivePixelSize(24)}px;
   background: #312e38;
-  padding: 8px 0 ${16 + getBottomSpace()}px;
+  padding: ${responsivePixelSize(8)}px 0 ${Number(responsivePixelSize(16)) + getBottomSpace()}px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -28,6 +29,6 @@ export const BackToSignInButton = styled.TouchableOpacity`
 export const BackToSignInButtonText = styled.Text`
   font-family: 'RobotoSlab-Regular';
   color: #fff;
-  font-size: 18px;
-  margin-left: 16px;
+  font-size: ${responsivePixelSize(18)}px;
+  margin-left: ${responsivePixelSize(16)}px;
 `;

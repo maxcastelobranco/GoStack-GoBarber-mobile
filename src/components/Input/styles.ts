@@ -1,5 +1,6 @@
 import styled, {css} from 'styled-components/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import responsivePixelSize from "../../utils/responsivePixelSize";
 
 interface ContainerProps {
   isFocused: boolean;
@@ -7,12 +8,12 @@ interface ContainerProps {
 }
 
 export const Container = styled.View<ContainerProps>`
-  height: 60px;
-  padding: 0 16px;
+  height: ${responsivePixelSize(60)}px;
+  padding: 0 ${responsivePixelSize(16)}px;
   background: #232129;
-  border: 2px solid #232129;
-  border-radius: 12px;
-  margin-bottom: 8px;
+  border: ${responsivePixelSize(2)}px solid #232129;
+  border-radius: ${responsivePixelSize(12)}px;
+  margin-bottom: ${responsivePixelSize(8)}px;
   flex-direction: row;
   align-items: center;
 
@@ -32,10 +33,10 @@ export const Container = styled.View<ContainerProps>`
 export const TextInput = styled.TextInput`
   flex: 1;
   color: #fff;
-  font-size: 16px;
+  font-size: ${responsivePixelSize(16)}px;
   font-family: 'RobotoSlab-Regular';
 `;
 
 export const Icon = styled(FeatherIcon)`
-  margin-right: 16px;
+  margin-right: ${responsivePixelSize(16)}px;
 `;

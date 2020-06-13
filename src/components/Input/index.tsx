@@ -6,13 +6,14 @@ import React, {
   useState,
   useCallback,
 } from 'react';
-import {TextInputProps} from 'react-native';
+import {StyleProp, TextInputProps, ViewProps, ViewStyle} from 'react-native';
 import {useField} from '@unform/core';
 import {Container, TextInput, Icon} from './styles';
 
 interface InputProps extends TextInputProps {
   name: string;
   icon: string;
+  containerStyle?: StyleProp<ViewStyle>;
 }
 
 interface InputValueReference {
@@ -24,7 +25,7 @@ interface InputRef {
 }
 
 const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
-  {name, icon, ...rest},
+  {name, icon, containerStyle = {}, ...rest},
   ref,
 ) => {
   const {registerField, defaultValue = '', fieldName, error} = useField(name);
@@ -54,7 +55,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
       name: fieldName,
       ref: inputValueRef.current,
       path: 'value',
-      setValue(ref: any, value) {
+      setValue(_valueRef: any, value) {
         inputValueRef.current.value = value;
         inputElementRef.current.setNativeProps({text: value});
       },
@@ -66,7 +67,7 @@ const Input: React.ForwardRefRenderFunction<InputRef, InputProps> = (
   }, [fieldName, registerField]);
 
   return (
-    <Container isFocused={isFocused} isErrored={!!error}>
+    <Container style={containerStyle} isFocused={isFocused} isErrored={!!error}>
       <Icon
         name={icon}
         size={20}
